@@ -1,0 +1,9 @@
+﻿@page "/showtoken"
+@inherits ShowTokenBase
+<div class="row">
+    <button @onclick="GetToken" class="btn btn-secondary" type="submit">Show JWT Token</button>
+</div>
+<hr />
+<div class="row">
+    @Bearer
+</div>

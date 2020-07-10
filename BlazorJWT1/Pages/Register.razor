@@ -1,0 +1,40 @@
+﻿@page "/Register"
+@inherits RegisterBase
+
+<div class="row">
+    <div class="col-md-6">
+        <h1 class="title">Register</h1>
+
+        <EditForm Model="@registerAccountModel" OnValidSubmit="@RegisterUser">
+
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="row">
+                <div class="form-group">
+                    <label>E-mail</label><br />
+                    <InputText name="email" id="email" class="input" type="email" @bind-Value="@registerAccountModel.Email"></InputText>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Password</label><br />
+                    <InputText id="password" class="input" type="password" @bind-Value="@registerAccountModel.Password"></InputText>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Confirm password</label><br />
+                    <InputText id="cpassword" class="input" type="password" @bind-Value="@registerAccountModel.ConfirmPassword"></InputText>
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </EditForm>
+
+        <div class="row">
+            @RegisterBase.Lerr1
+        </div>
+    </div>
+</div>

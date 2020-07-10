@@ -1,5 +1,60 @@
 ﻿@page "/"
+@inherits LoginBase
 
-<h1>Hello, world!</h1>
+<h1>Blazor JWT Autentication</h1>
 
-Welcome to your new app.
+<div class="row">
+    <div class="col-md-6">
+
+
+
+
+        @if (AuState.User.Identity.Name == null)
+        {
+
+            <EditForm Model="@signInModel">
+
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label form-security">Email adress</label>
+                        <InputText @bind-Value="@signInModel.Email" style=" height:50px; font-size: medium; font-weight: 600; " type="email" placeholder="Enter email" id="demo-inline-inputmail" class="form-control"></InputText>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label form-security">Password</label>
+                        <InputText @bind-Value="@signInModel.Password" style=" height:50px; font-size: medium; font-weight: 600; " type="password" placeholder="Password" id="demo-inline-inputpass" class="form-control"></InputText>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="checkbox">
+                        <input id="demo-remember-me" class="magic-checkbox" type="checkbox">
+                        <label for="demo-remember-me">Remember me</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <button @onclick="Login" class="btn btn-primary" type="submit">Log in</button> &nbsp;
+
+                </div>
+            </EditForm>
+            <div class="row">
+                <NavLink href="/Register">Register as a new user</NavLink>
+            </div>
+            @if (showSignInError)
+            {
+                <div class="notification is-danger" style="color:red">
+                    Sorry, wrong username or password
+                </div>
+            }
+
+        }
+        else
+        {
+            <NavLink href="/Account/Signout">Logoff</NavLink>
+        }
+
+    </div>
+</div>
