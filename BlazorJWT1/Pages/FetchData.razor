@@ -1,11 +1,5 @@
 ﻿@page "/fetchdata"
-
-@using AuTestMicroservice.Data
-@using Newtonsoft.Json
-@using Microsoft.AspNetCore.Http
-@*@inject WeatherForecastService ForecastService*@
-@inject HttpClient httpClient
-@inject IHttpContextAccessor http
+@inherits FetchDataBase
 
 <h1>Weather forecast</h1>
 
@@ -43,42 +37,5 @@ else
 
 @code {
 
-    WeatherForecast[] forecasts;
-    public string Lerr1;
 
-    protected override async Task OnInitializedAsync()
-    {
-        HttpResponseMessage response;
-        try
-        {
-            var AuCookies = http.HttpContext.Request.Cookies[".AspNetCore.Identity.Application"];
-            string JWTtoken;
-            if (AuCookies != null)
-            {
-                httpClient.DefaultRequestHeaders.Add("Cookie", ".AspNetCore.Identity.Application=" + AuCookies);
-                JWTtoken = httpClient.GetStringAsync("http://localhost:62861/account/gettoken").Result.Replace("\"","");
-                if (JWTtoken != null)
-                {
-                    //var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:6000/api/Weather");
-                    httpClient.DefaultRequestHeaders.Remove("Cookie");
-                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {JWTtoken }");
-                    //request.Headers.Add("Authorization", $"Bearer {JWTtoken }");
-                    response = httpClient.GetAsync("http://localhost:6000/api/Weather").Result;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string dataObject = response.Content.ReadAsStringAsync().Result;
-                        forecasts = JsonConvert.DeserializeObject<WeatherForecast[]>(dataObject);
-                    }
-                    else
-                        Lerr1 = response.StatusCode.ToString();
-                }
-            }
-            //forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-        }
-        catch (Exception e)
-        {
-            Lerr1 = e.Message;
-        }
-    }
-    //https://docs.microsoft.com/en-us/aspnet/core/blazor/security/server/additional-scenarios?view=aspnetcore-3.1
 }

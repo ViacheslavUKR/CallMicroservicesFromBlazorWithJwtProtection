@@ -68,10 +68,11 @@ namespace BlazorJWT1
                     };
                 });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("RequireAdmin", c => c.RequireRole("Admin"));
-            });
+            //no need to this demo
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("RequireAdmin", c => c.RequireRole("Admin"));
+            //});
 
             services.AddHttpContextAccessor();
             services.AddRazorPages();
@@ -80,11 +81,10 @@ namespace BlazorJWT1
 
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            httpClient.BaseAddress = new Uri("http://localhost:6000/");
             services.AddSingleton<HttpClient>(httpClient);
         }
          
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

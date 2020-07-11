@@ -20,9 +20,4 @@
   <ItemGroup>
     <Folder Include="Models\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\AuTestMicroservice\AuTestMicroservice.csproj" />
-  </ItemGroup>
-
 </Project>

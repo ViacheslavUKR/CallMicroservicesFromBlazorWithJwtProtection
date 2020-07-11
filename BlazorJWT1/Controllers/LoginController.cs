@@ -100,32 +100,6 @@ namespace BlazorJWT1.Controllers
             return "";
         }
 
-        [HttpPost("account/checkuser")]
-        public ApplicationUser CheckUser(SignInModel user)
-        {
-            var User1 = userManager.FindByEmailAsync(user.Email).Result;
-
-            if (User1 != null && userManager.CheckPasswordAsync(User1, user.Password).Result)
-            {
-                return User1;
-            }
-            else return null;
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost("account/checkadmin")]
-        public IActionResult CheckAdmin([FromBody] string value)
-        {
-            try
-            {
-                return Ok(value);
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
-        }
-
         private string JsonWebToken(ApplicationUser currentUser)
         {
             Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
@@ -158,7 +132,33 @@ namespace BlazorJWT1.Controllers
 
             return Redirect("/");
         }
+
+        //no need for this demo
+        //[HttpPost("account/checkuser")]
+        //public ApplicationUser CheckUser(SignInModel user)
+        //{
+        //    var User1 = userManager.FindByEmailAsync(user.Email).Result;
+
+        //    if (User1 != null && userManager.CheckPasswordAsync(User1, user.Password).Result)
+        //    {
+        //        return User1;
+        //    }
+        //    else return null;
+        //}
+
+        //[Authorize(Roles = "Admin")]
+        //[HttpPost("account/checkadmin")]
+        //public IActionResult CheckAdmin([FromBody] string value)
+        //{
+        //    try
+        //    {
+        //        return Ok(value);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return NotFound();
+        //    }
+        //}
+
     }
 }
-//Dictionary<string, string> header = new Dictionary<string, string>();
-//header.Add("Authorization", "Bearer " + Bearer);
