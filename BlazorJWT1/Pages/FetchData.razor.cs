@@ -21,7 +21,7 @@ namespace BlazorJWT1.Pages
         [Inject] IHttpContextAccessor http { get; set; }
         [Inject] IConfiguration Configuration { get; set; }
 
-        public WeatherForecast[] forecasts;
+        public IWeatherForecast[] forecasts;
         public string Lerr1;
 
         protected override async Task OnInitializedAsync()
@@ -46,7 +46,7 @@ namespace BlazorJWT1.Pages
                         if (response.IsSuccessStatusCode)
                         {
                             string dataObject = response.Content.ReadAsStringAsync().Result;
-                            forecasts = JsonConvert.DeserializeObject<WeatherForecast[]>(dataObject);
+                            forecasts = JsonConvert.DeserializeObject<IWeatherForecast[]>(dataObject);
 
                             //forecasts = await ForecastService.GetForecastAsync(DateTime.Now); -- old local call microservices
                         }
