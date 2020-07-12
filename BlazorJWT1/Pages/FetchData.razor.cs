@@ -21,7 +21,7 @@ namespace BlazorJWT1.Pages
         [Inject] IHttpContextAccessor http { get; set; }
         [Inject] IConfiguration Configuration { get; set; }
 
-        public IWeatherForecast[] forecasts;
+        public WeatherForecast[] forecasts;
         public string Lerr1;
 
         protected override async Task OnInitializedAsync()
@@ -41,13 +41,14 @@ namespace BlazorJWT1.Pages
 
                         //redifinition authentication from site cookie to JWT for microservices
 
+                        httpClient.DefaultRequestHeaders.Clear();
                         httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {JWTtoken }");
                         response = httpClient.GetAsync(Configuration["MicriservicesUrl"]).Result;
                         if (response.IsSuccessStatusCode)
                         {
                             string dataObject = response.Content.ReadAsStringAsync().Result;
-                            forecasts = JsonConvert.DeserializeObject<IWeatherForecast[]>(dataObject);
-
+                            forecasts = JsonConvert.DeserializeObject<WeatherForecast[]>(dataObject);
+                            StateHasChanged();
                             //forecasts = await ForecastService.GetForecastAsync(DateTime.Now); -- old local call microservices
                         }
                         else
@@ -62,4 +63,6 @@ namespace BlazorJWT1.Pages
         }
 
     }
+
+
 }
